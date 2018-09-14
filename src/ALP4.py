@@ -488,8 +488,9 @@ class ALP4():
         if not SequenceId:
             SequenceId = self._lastDDRseq 
         
-            
-        if dataFormat == 'Python':  
+        if type(imgData) == np.ndarray:
+            pImageData = imgData.ctypes.data_as(ctypes.POINTER(ct.c_void_p))
+        elif dataFormat == 'Python':
             pImageData = (ct.c_ubyte*imgData.size)()
             for ind,x in enumerate(imgData):
                 pImageData[ind] = x
